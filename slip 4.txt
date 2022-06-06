@@ -1,0 +1,69 @@
+Q1 WT
+book.php
+<?php
+$xml=simplexml_load_file("book.xml") or die("eror:cannot create object");
+echo "<table border=1 align=center>";
+echo "<tr><td>book no
+</td><td>Bookname</td><td>authorname</td><td>price</td><td>year</td></tr>";
+foreach($xml->children() as $book)
+{
+echo "<tr><td>".$book->bookno."</td>";
+echo "<td>".$book->bookname."</td>";
+echo "<td>".$book->authorname."</td>";
+echo "<td>".$book->price."</td>";
+echo "<td>".$book->year."</td></tr>";
+}
+echo "<table>";
+?>
+• Q1.xml
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="item.css"?>
+<iteminfo>
+<item id="101">
+<iname>pen</iname>
+<iprice>15.00</iprice>
+<iqty>20</iqty>
+</item>
+<item id="102">
+<iname>book</iname>
+<iprice>38.00</iprice>
+<iqty>12</iqty>
+</item>
+<item id="103">
+<iname>pencil</iname>
+<iprice>5.00</iprice>
+<iqty>25</iqty>
+</item>
+<item id="104">
+<iname>calculator</iname>
+<iprice>175.00</iprice>
+<iqty>5</iqty>
+</item>
+<item id="105">
+<iname>Scale</iname>
+<iprice>10.00</iprice>
+<iqty>20</iqty>
+</item>
+</iteminfo>
+DA
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+import seaborn as sn
+import matplotlib.pyplot as plt
+dataset = pd.read_csv("/home/pc256/Documents/TY(21-22)Sem-II/User_Data.csv") 
+x = dataset.iloc[:, [2,3]].values 
+y = dataset.iloc[:, 4].values
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.25,random_state=0)   
+logistic_regression= LogisticRegression()
+logistic_regression.fit(x_train,y_train)
+y_pred=logistic_regression.predict(x_test)
+confusion_matrix = pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted'])
+sn.heatmap(confusion_matrix, annot=True)
+print('Accuracy: ',metrics.accuracy_score(y_test, y_pred))
+plt.show()
+
+print (x_test)
+print (y_pl.red)

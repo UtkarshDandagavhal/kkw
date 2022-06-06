@@ -1,0 +1,65 @@
+Q1 WT ans
+a.html
+<html>
+<body>
+<form method="POST" action="o1.php">
+Enter UserName:
+<input type="text" name="txt1" id="txt1">
+<br>
+Enter Password:<input type="text" name="txt2" id="txt2">
+<br>
+<input type="submit" value="login"">
+</form>
+</body>
+</html>
+• o1.php
+<?php
+session_start();
+if(!isset($_SESSION['count']))
+$_SESSION['count']=0;
+$username=$_POST['txt1'];
+$password=$_POST['txt2'];
+if($username==""&&$password=="")
+{
+echo"Enter All Details";
+}
+if($username=="ty"&&$password=="123456")
+{
+echo"login Successfull";
+$_SESSION['count']=0;
+}
+else
+{
+$_SESSION['count']=$_SESSION['count']+1;
+if($_SESSION['count']>2)
+{
+echo ("You Exceeded the Limit...ie,3");
+$_SESSION['count']=0;
+}
+else
+{
+echo"Login Failed ... Wrong Details Entered... attempts made:". $_SESSION['count'];
+include('a.html');
+}
+}
+?>
+Q2 DA ans
+
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+import pandas as pd
+transactions=[['Bread','milk',],
+['Bread','Diaper','Beer','Eggs'],
+['Milk','Diaper','Beer','Coke'],
+['Bread','Milk','Diaper','Beer'],
+['Bread','Milk','Diaper','Coke']]
+from mlxtend.preprocessing import TransactionEncoder
+te=TransactionEncoder()
+te_array=te.fit(transactions).transform(transactions)
+df=pd.DataFrame(te_array, columns=te.columns_)
+print(df.astype('int'))
+freq_items = apriori(df, min_support = 0.5, use_colnames = True)
+print(freq_items)
+rules = association_rules(freq_items, metric ='support', min_threshold=0.05)
+rules = rules.sort_values(['support', 'confidence'], ascending =[False,False])
+print(rules)

@@ -1,0 +1,91 @@
+WT
+Q1.xml
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="item.css"?>
+<iteminfo>
+<item id="101">
+<iname>pen</iname>
+<iprice>15.00</iprice>
+<iqty>20</iqty>
+</item>
+<item id="102">
+<iname>book</iname>
+<iprice>38.00</iprice>
+<iqty>12</iqty>
+</item>
+<item id="103">
+<iname>pencil</iname>
+<iprice>5.00</iprice>
+<iqty>25</iqty>
+</item>
+<item id="104">
+<iname>calculator</iname>
+<iprice>175.00</iprice>
+<iqty>5</iqty>
+</item>
+<item id="105">
+<iname>Scale</iname>
+<iprice>10.00</iprice>
+<iqty>20</iqty>
+</item>
+</iteminfo>
+• Item.css
+iteminfo
+{
+background-color:blue;
+}
+iname
+{
+display:block;
+color : red;
+font-family : copperplate Gothic Light;
+font-size : 16pt;
+font-weight :bold;
+border-style:solid;
+}
+iprice,iqty
+{
+display:block;
+color : yellow;
+font-family : arial;
+font-size : 12pt;
+font-weight :bold;
+}
+DA
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score,mean_squared_error
+df = pd.read_csv('/home/pc256/Documents/TY(21-22)Sem-II/Fish.csv') 
+print(df.sample(5)) 
+print(df.shape) 
+print(df['Species'].value_counts()) 
+new_df = df[df['Species']=='Roach'] 
+print(new_df.shape) 
+new_df = new_df[['Height','Width']] 
+new_df.sample(5) 
+X = np.array(new_df[['Height']]) 
+y = np.array(new_df[['Width']]) 
+print(X.shape) 
+print(y.shape) 
+plt.scatter(X,y,color="red") 
+plt.title('Fish ')
+plt.xlabel('Height')
+plt.ylabel('Width')
+plt.show()
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size = 0.25,random_state=15)
+regressor = LinearRegression() 
+regressor.fit(X_train,y_train) 
+plt.scatter(X_test,y_test,color="green") 
+plt.plot(X_train,regressor.predict(X_train),color="red",linewidth=3) 
+plt.title('Regression(Test Set)')
+plt.xlabel('Height')
+plt.ylabel('Width')
+plt.show()
+plt.scatter(X_train,y_train,color="blue") plt.plot(X_train,regressor.predict(X_train),color="red",linewidth=3) 
+plt.title('Regression(training Set)')
+plt.xlabel('Height')
+plt.ylabel('Width')
+plt.show()
